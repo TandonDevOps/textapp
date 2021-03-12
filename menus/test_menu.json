@@ -1,0 +1,9 @@
+{
+    "title": "Main Menu",
+    "default": 0,
+    "choices": {
+        "0": {"func": "go_on", "text": "Continue displaying menu"},
+        "1": {"func": "exit", "text": "Exit"}
+    }
+}
+

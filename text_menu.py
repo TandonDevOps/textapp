@@ -2,9 +2,10 @@
 This file defines a simple text menu facility.
 """
 # JSON needed for menu data:
-# import json
+import json
 
 SUCCESS = 0
+FAILURE = 1
 FUNC = "func"
 TEXT = "text"
 BAD_CHOICE = -999
@@ -15,8 +16,10 @@ TAB = "    "
 TITLE = "Title"
 DEFAULT = "Default"
 CHOICES = "Choices"
+MAIN_MENU = "Main Menu"
 CONTINUE = 0
 EXIT = 1
+MENUS_DIR = "menus"
 
 
 def go_on():
@@ -27,8 +30,11 @@ def exit():
     return False
 
 
+MENU_FILE = f"{MENUS_DIR}/test_menu.json"
+
+
 TEST_MENU = {
-    TITLE: "Main Menu",
+    TITLE: MAIN_MENU,
     DEFAULT: 0,
     CHOICES: {
         CONTINUE: {FUNC: go_on, TEXT: "Continue displaying menu", },
@@ -37,16 +43,30 @@ TEST_MENU = {
 }
 
 
+FUNC_MAP = {
+    "go_on": go_on,
+    "exit": exit,
+}
+
+
 def read_menu_file(menu_file):
-    pass
+    menu = None
+    try:
+        with open(menu_file, 'r') as f:
+            menu = json.load(f)
+    except FileNotFoundError:
+        print("Could not open menu file:", menu_file)
+    return menu
 
 
-def display_menu(menu):
-    print(menu[TITLE])
-    print(SEP)
+def menu_repr(menu):
+    menu_txt = ""
+    menu_txt += f"{menu[TITLE]}\n"
+    menu_txt += f"{SEP}\n"
     for key, val in menu[CHOICES].items():
-        print(f"{TAB}{key}. {val[TEXT]}")
-    print(SEP)
+        menu_txt += f"{TAB}{key}. {val[TEXT]}\n"
+    menu_txt += f"{SEP}\n"
+    return menu_txt
 
 
 def is_valid_choice(choice, menu):
@@ -72,14 +92,17 @@ def exec_choice(choice, menu):
     return menu[CHOICES][choice][FUNC]()
 
 
-def run_menu(menu_file=None, menu_data=None):
+def run_menu(menu_file=None, menu_data=None, func_map=None):
     if menu_file is None and menu_data is None:
         return None
     elif menu_data is None:
-        menu_data = read_menu_file(menu_file)
+        if func_map is None:
+            print("You must provide a function mapping with your menu JSON.")
+            return FAILURE
+        menu_data = read_menu_file(menu_file, func_map)
     result = True
     while result:
-        display_menu(menu_data)
+        print(menu_repr(menu_data))
         choice = get_choice(menu_data)
         result = exec_choice(choice, menu_data)
     return SUCCESS
@@ -87,6 +110,7 @@ def run_menu(menu_file=None, menu_data=None):
 
 def main():
     run_menu(menu_data=TEST_MENU)
+    run_menu(menu_file=MENU_FILE, func_map=FUNC_MAP)
     return SUCCESS
 
 
