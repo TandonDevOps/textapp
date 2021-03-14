@@ -21,4 +21,4 @@ prod: tests github
 	python3 -m twine upload dist/*
 
 dev_env: FORCE
-	pip install --user -r requirements-dev.txt
+	pip3 install --user -r requirements-dev.txt
