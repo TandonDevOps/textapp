@@ -4,13 +4,8 @@ PYLINTER = flake8
 
 FORCE:
 
-tests: lint pytests
-
-lint: FORCE
-	flake8 *.py
-
-pytests: FORCE
-	nosetests --exe --verbose --with-coverage --cover-package=.
+tests: FORCE
+	cd text_menu; make tests
 
 github: FORCE
 	git commit -a
