@@ -6,6 +6,10 @@ from text_menu.text_menu.text_menu import MAIN_MENU
 
 
 class TextMenuTest(TestCase):
+    # leave main() test out until we figure out input problem:
+    # def test_main(self):
+    #     self.assertTrue(main() == SUCCESS)
+
     def test_is_valid_choice(self):
         self.assertTrue(is_valid_choice(CONTINUE, TEST_MENU))
         self.assertTrue(is_valid_choice(EXIT, TEST_MENU))

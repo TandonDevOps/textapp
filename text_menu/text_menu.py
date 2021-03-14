@@ -19,7 +19,7 @@ CHOICES = "Choices"
 MAIN_MENU = "Main Menu"
 CONTINUE = 0
 EXIT = 1
-MENUS_DIR = "menus"
+MENUS_DIR = "../menus"
 
 
 def go_on():
@@ -35,7 +35,7 @@ MENU_FILE = f"{MENUS_DIR}/test_menu.json"
 
 TEST_MENU = {
     TITLE: MAIN_MENU,
-    DEFAULT: 0,
+    DEFAULT: CONTINUE,
     CHOICES: {
         CONTINUE: {FUNC: go_on, TEXT: "Continue displaying menu", },
         EXIT: {FUNC: exit, TEXT: "Exit", },
@@ -49,7 +49,7 @@ FUNC_MAP = {
 }
 
 
-def read_menu_file(menu_file):
+def read_menu_file(menu_file, func_map):
     menu = None
     try:
         with open(menu_file, 'r') as f:
