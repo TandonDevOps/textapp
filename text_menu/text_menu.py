@@ -7,6 +7,8 @@ import json
 SUCCESS = 0
 FAILURE = 1
 FUNC = "func"
+URL = "url"
+METHOD = "method"
 TEXT = "text"
 BAD_CHOICE = -999
 SEP_CHAR = "*"
@@ -96,10 +98,12 @@ def run_menu(menu_file=None, menu_data=None, func_map=None):
     if menu_file is None and menu_data is None:
         return None
     elif menu_data is None:
-        if func_map is None:
-            print("You must provide a function mapping with your menu JSON.")
-            return FAILURE
         menu_data = read_menu_file(menu_file, func_map)
+        for opt in menu_data:
+            if FUNC in opt:
+                if func_map is None:
+                    print("You must provide a function map with your menu.")
+                    return FAILURE
     result = True
     while result:
         print(menu_repr(menu_data))
