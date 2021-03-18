@@ -29,6 +29,7 @@ def go_on():
 
 
 def exit():
+    print("In exit")
     return False
 
 
@@ -114,7 +115,7 @@ def run_menu(menu_file=None, menu_data=None, func_map=None):
 
 def main():
     run_menu(menu_data=TEST_MENU)
-    run_menu(menu_file=MENU_FILE, func_map=FUNC_MAP)
+    # run_menu(menu_file=MENU_FILE, func_map=FUNC_MAP)
     return SUCCESS
 
 

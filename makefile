@@ -12,8 +12,8 @@ github: FORCE
 	git push origin main
 
 prod: tests github
-	python3 setup.py sdist bdist_wheel
-	python3 -m twine upload dist/*
+	# python3 setup.py sdist bdist_wheel
+	# python3 -m twine upload dist/*
 
 dev_env: FORCE
 	pip3 install --user -r requirements-dev.txt
