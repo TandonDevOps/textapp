@@ -92,7 +92,7 @@ def data_repr(data):
     data_txt = ""
     if DATA in data:
         for i, key in enumerate(data[DATA]):
-            data_txt += f"{i}. {key} {data[DATA][key]}"
+            data_txt += f"{i}. {key} {data[DATA][key]}\n"
         return data_txt
     else:
         return None
