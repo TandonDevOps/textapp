@@ -23,8 +23,8 @@ TITLE = "Title"
 DEFAULT = "Default"
 CHOICES = "Choices"
 MAIN_MENU = "Main Menu"
-CONTINUE = 0
-EXIT = 1
+CONTINUE = "0"
+EXIT = "1"
 URL0 = "/games/list"
 URL1 = "/games/create"
 MENUS_DIR = "../menus"
@@ -55,8 +55,8 @@ URL_MENU = {
     TITLE: MAIN_MENU,
     DEFAULT: CONTINUE,
     CHOICES: {
-        0: {URL: URL0, METHOD: "get", TEXT: "This is some URL", },
-        1: {URL: URL1, METHOD: "get", TEXT: "Some other URL", },
+        "0": {URL: URL0, METHOD: "get", TEXT: "This is some URL", },
+        "1": {URL: URL1, METHOD: "get", TEXT: "Some other URL", },
     },
 }
 
@@ -97,7 +97,7 @@ def my_input():
     """
     mode = os.getenv("RUN_ENV", PROD)
     if mode == TEST:
-        return str(EXIT)  # cause input() returns a str!
+        return EXIT
     else:
         return input("Please choose a number from the menu above: ")
 
@@ -109,8 +109,6 @@ def get_choice(menu):
             c = my_input()
             if not c or c.isspace():
                 c = menu[DEFAULT]
-            else:
-                c = int(c)
         except ValueError:
             print("Please enter a number.")
     return c

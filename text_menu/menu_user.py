@@ -12,7 +12,7 @@ MY_MENU = {
     tm.CHOICES: {
         tm.CONTINUE: {tm.FUNC: tm.go_on, tm.TEXT: "Keep running the menu", },
         tm.EXIT: {tm.FUNC: tm.exit, tm.TEXT: "Exit", },
-        2: {tm.FUNC: another_choice, tm.TEXT: "A different choice", },
+        "2": {tm.FUNC: another_choice, tm.TEXT: "A different choice", },
     },
 }
 
