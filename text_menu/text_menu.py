@@ -1,8 +1,12 @@
 """
 This file defines a simple text menu facility.
 """
+import os
 # JSON needed for menu data:
 import json
+
+TEST = "test"
+PROD = "prod"
 
 SUCCESS = 0
 FAILURE = 1
@@ -21,6 +25,8 @@ CHOICES = "Choices"
 MAIN_MENU = "Main Menu"
 CONTINUE = 0
 EXIT = 1
+URL0 = "/games/list"
+URL1 = "/games/create"
 MENUS_DIR = "../menus"
 
 
@@ -29,7 +35,6 @@ def go_on():
 
 
 def exit():
-    print("In exit")
     return False
 
 
@@ -42,6 +47,16 @@ TEST_MENU = {
     CHOICES: {
         CONTINUE: {FUNC: go_on, TEXT: "Continue displaying menu", },
         EXIT: {FUNC: exit, TEXT: "Exit", },
+    },
+}
+
+
+URL_MENU = {
+    TITLE: MAIN_MENU,
+    DEFAULT: CONTINUE,
+    CHOICES: {
+        0: {URL: URL0, METHOD: "get", TEXT: "This is some URL", },
+        1: {URL: URL1, METHOD: "get", TEXT: "Some other URL", },
     },
 }
 
@@ -76,12 +91,22 @@ def is_valid_choice(choice, menu):
     return choice in menu[CHOICES]
 
 
+def my_input():
+    """
+    Mock input if in test!
+    """
+    mode = os.getenv("RUN_ENV", PROD)
+    if mode == TEST:
+        return str(EXIT)  # cause input() returns a str!
+    else:
+        return input("Please choose a number from the menu above: ")
+
+
 def get_choice(menu):
     c = BAD_CHOICE
     while not is_valid_choice(c, menu):
-        print("Please choose a number from the menu above:")
         try:
-            c = input()
+            c = my_input()
             if not c or c.isspace():
                 c = menu[DEFAULT]
             else:
@@ -91,32 +116,57 @@ def get_choice(menu):
     return c
 
 
+def get_menu_item(choice, menu):
+    return menu[CHOICES][choice]
+
+
 def exec_choice(choice, menu):
-    return menu[CHOICES][choice][FUNC]()
+    return get_menu_item(choice, menu)[FUNC]()
 
 
-def run_menu(menu_file=None, menu_data=None, func_map=None):
-    if menu_file is None and menu_data is None:
-        return None
-    elif menu_data is None:
-        menu_data = read_menu_file(menu_file, func_map)
-        for opt in menu_data:
-            if FUNC in opt:
-                if func_map is None:
-                    print("You must provide a function map with your menu.")
-                    return FAILURE
+def run_menu_once(menu):
+    """
+    This function runs the menu once, just returning the choice made.
+    """
+    print(menu_repr(menu))
+    return get_choice(menu)
+
+
+def get_single_opt(menu):
+    """
+    Gets the full dict from a menu choice
+    """
+    return get_menu_item(run_menu_once(menu), menu)
+
+
+def menu_data_from_file(menu_file, func_map=None):
+    """
+    Convert a file into in-mem menu.
+    We must map the functions' names to strings.
+    """
+    menu_data = read_menu_file(menu_file, func_map)
+    for opt in menu_data:
+        if FUNC in opt:
+            if func_map is None:
+                print("You must provide a function map with your menu.")
+                return None
+    return menu_data
+
+
+def run_menu_cont(menu_data):
+    """
+    This function runs the menu in a loop.
+    It will exit when `exec_choice()` returns False.
+    """
     result = True
     while result:
-        print(menu_repr(menu_data))
-        choice = get_choice(menu_data)
+        choice = run_menu_once(menu_data)
         result = exec_choice(choice, menu_data)
     return SUCCESS
 
 
 def main():
-    run_menu(menu_data=TEST_MENU)
-    # run_menu(menu_file=MENU_FILE, func_map=FUNC_MAP)
-    return SUCCESS
+    return run_menu_cont(TEST_MENU)
 
 
 if __name__ == "__main__":

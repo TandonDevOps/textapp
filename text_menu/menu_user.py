@@ -18,7 +18,7 @@ MY_MENU = {
 
 
 def main():
-    tm.run_menu(menu_data=MY_MENU)
+    tm.run_menu_cont(MY_MENU)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,8 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+# Read version number from env var?
+# Keep it in a file?
 setuptools.setup(
     name="text_menu",
     version="0.0.1",
