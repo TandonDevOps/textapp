@@ -29,6 +29,12 @@ URL0 = "/games/list"
 URL1 = "/games/create"
 MENUS_DIR = "../menus"
 
+TYPE = "Type"
+# types of "screens":
+MENU = "Menu"
+FORM = "Form"
+DATA = "Data"
+
 
 def go_on():
     return True
@@ -42,6 +48,7 @@ MENU_FILE = f"{MENUS_DIR}/test_menu.json"
 
 
 TEST_MENU = {
+    TYPE: MENU,
     TITLE: MAIN_MENU,
     DEFAULT: CONTINUE,
     CHOICES: {
@@ -52,6 +59,7 @@ TEST_MENU = {
 
 
 URL_MENU = {
+    TYPE: MENU,
     TITLE: MAIN_MENU,
     DEFAULT: CONTINUE,
     CHOICES: {
@@ -75,6 +83,19 @@ def read_menu_file(menu_file, func_map):
     except FileNotFoundError:
         print("Could not open menu file:", menu_file)
     return menu
+
+
+def data_repr(data):
+    """
+    Formats a data object for display.
+    """
+    data_txt = ""
+    if DATA in data:
+        for i, key in enumerate(data[DATA]):
+            data_txt += f"{i}. {key} {data[DATA][key]}"
+        return data_txt
+    else:
+        return None
 
 
 def menu_repr(menu):
