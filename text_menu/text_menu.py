@@ -37,13 +37,41 @@ DATA = "Data"
 
 DATA_SET = "Retrieved data"
 
+PROMPT = "Prompt"
+VALUE = "Value"
+FLDS = "Fields"
 
-def go_on():
-    return True
+TEST_FORM_TITLE = "Test form"
+
+TEST_FORM = {
+    TITLE: TEST_FORM_TITLE,
+    FLDS: {
+        "grid_height": {
+            VALUE: 20,
+            PROMPT: "What is the grid height?",
+            "atype": "INT",
+            "hival": 100,
+            "lowval": 2
+        },
+        "grid_width": {
+            VALUE: 20,
+            PROMPT: "What is the grid width?",
+            "atype": "INT",
+            "hival": 100,
+            "lowval": 2
+        },
+    },
+}
 
 
-def exit():
-    return False
+def run_form(form):
+    print(f"{form[TITLE]}\n")
+    print(f"{SEP}\n")
+    for fld in form[FLDS]:
+        field = form[FLDS][fld]
+        answer = input(f"{field[PROMPT]} ({field[VALUE]}): ")
+        print(answer)
+    return form
 
 
 TEST_DATA = {
@@ -57,22 +85,26 @@ def data_repr(data):
     """
     Formats a data object for display.
     """
-    data_txt = ""
-    if DATA in data:
-        data_txt += f"{data[TITLE]}\n"
-        data_txt += f"{SEP}\n"
-        for i, key in enumerate(data[DATA]):
-            data_txt += f"{i}. {key}"
-            rec = data[DATA][key]
-            for val in rec.values():
-                data_txt += f"\t{val}"
-            data_txt += "\n"
-        return data_txt
-    else:
-        return None
+    data_txt = f"{data[TITLE]}\n"
+    data_txt += f"{SEP}\n"
+    for i, key in enumerate(data[DATA]):
+        data_txt += f"{i}. {key}"
+        rec = data[DATA][key]
+        for val in rec.values():
+            data_txt += f"\t{val}"
+        data_txt += "\n"
+    return data_txt
 
 
 MENU_FILE = f"{MENUS_DIR}/test_menu.json"
+
+
+def go_on():
+    return True
+
+
+def exit():
+    return False
 
 
 TEST_MENU = {
@@ -200,6 +232,7 @@ def run_menu_cont(menu_data):
 
 
 def main():
+    run_form(TEST_FORM)
     return run_menu_cont(TEST_MENU)
 
 
