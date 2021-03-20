@@ -35,6 +35,8 @@ MENU = "Menu"
 FORM = "Form"
 DATA = "Data"
 
+DATA_SET = "Retrieved data"
+
 
 def go_on():
     return True
@@ -42,6 +44,32 @@ def go_on():
 
 def exit():
     return False
+
+
+TEST_DATA = {
+    TYPE: DATA,
+    TITLE: DATA_SET,
+    DATA: {"Rec1": {"fld0": 0, "fld1": 1}, "Rec2": {"fld0": 2, "fld1": 3}},
+}
+
+
+def data_repr(data):
+    """
+    Formats a data object for display.
+    """
+    data_txt = ""
+    if DATA in data:
+        data_txt += f"{data[TITLE]}\n"
+        data_txt += f"{SEP}\n"
+        for i, key in enumerate(data[DATA]):
+            data_txt += f"{i}. {key}"
+            rec = data[DATA][key]
+            for val in rec.values():
+                data_txt += f"\t{val}"
+            data_txt += "\n"
+        return data_txt
+    else:
+        return None
 
 
 MENU_FILE = f"{MENUS_DIR}/test_menu.json"
@@ -83,19 +111,6 @@ def read_menu_file(menu_file, func_map):
     except FileNotFoundError:
         print("Could not open menu file:", menu_file)
     return menu
-
-
-def data_repr(data):
-    """
-    Formats a data object for display.
-    """
-    data_txt = ""
-    if DATA in data:
-        for i, key in enumerate(data[DATA]):
-            data_txt += f"{i}. {key} {data[DATA][key]}\n"
-        return data_txt
-    else:
-        return None
 
 
 def menu_repr(menu):
