@@ -43,6 +43,18 @@ FLDS = "Fields"
 
 TEST_FORM_TITLE = "Test form"
 
+
+def my_input(prompt):
+    """
+    Mock input if in test!
+    """
+    mode = os.getenv("RUN_ENV", PROD)
+    if mode == TEST:
+        return EXIT
+    else:
+        return input(f"{prompt}: ")
+
+
 TEST_FORM = {
     TITLE: TEST_FORM_TITLE,
     FLDS: {
@@ -69,7 +81,7 @@ def run_form(form):
     print(f"{SEP}\n")
     for fld in form[FLDS]:
         field = form[FLDS][fld]
-        answer = input(f"{field[PROMPT]} ({field[VALUE]}): ")
+        answer = my_input(f"{field[PROMPT]} ({field[VALUE]})")
         print(answer)
     return form
 
@@ -159,22 +171,11 @@ def is_valid_choice(choice, menu):
     return choice in menu[CHOICES]
 
 
-def my_input():
-    """
-    Mock input if in test!
-    """
-    mode = os.getenv("RUN_ENV", PROD)
-    if mode == TEST:
-        return EXIT
-    else:
-        return input("Please choose a number from the menu above: ")
-
-
 def get_choice(menu):
     c = BAD_CHOICE
     while not is_valid_choice(c, menu):
         try:
-            c = my_input()
+            c = my_input("Please enter a choice from the menu above")
             if not c or c.isspace():
                 c = menu[DEFAULT]
         except ValueError:
