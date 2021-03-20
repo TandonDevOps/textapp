@@ -40,6 +40,8 @@ DATA_SET = "Retrieved data"
 PROMPT = "Prompt"
 VALUE = "Value"
 FLDS = "Fields"
+HIVAL = "hival"
+LOWVAL = "lowval"
 
 TEST_FORM_TITLE = "Test form"
 
@@ -61,27 +63,36 @@ TEST_FORM = {
         "grid_height": {
             VALUE: 20,
             PROMPT: "What is the grid height?",
-            "atype": "INT",
-            "hival": 100,
-            "lowval": 2
+            TYPE: "INT",
+            HIVAL: 100,
+            LOWVAL: 2
         },
         "grid_width": {
             VALUE: 20,
             PROMPT: "What is the grid width?",
-            "atype": "INT",
-            "hival": 100,
-            "lowval": 2
+            TYPE: "INT",
+            HIVAL: 100,
+            LOWVAL: 2
         },
     },
 }
+
+
+def build_prompt(field):
+    prompt = f"{field[PROMPT]} "
+    if field[VALUE]:
+        prompt += f"({field[VALUE]}) "
+    if field[HIVAL] and field[LOWVAL]:
+        prompt += f"[{field[LOWVAL]} - {field[HIVAL]}] "
+    return prompt
 
 
 def run_form(form):
     print(f"{form[TITLE]}\n")
     print(f"{SEP}\n")
     for fld in form[FLDS]:
-        field = form[FLDS][fld]
-        answer = my_input(f"{field[PROMPT]} ({field[VALUE]})")
+        prompt = build_prompt(form[FLDS][fld])
+        answer = my_input(prompt)
         print(answer)
     return form
 
