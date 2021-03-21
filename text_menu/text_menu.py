@@ -40,8 +40,8 @@ DATA_SET = "Retrieved data"
 PROMPT = "Prompt"
 VALUE = "Value"
 FLDS = "Fields"
-HIVAL = "hival"
-LOWVAL = "lowval"
+HIVAL = "Hival"
+LOWVAL = "Lowval"
 
 TEST_FORM_TITLE = "Test form"
 
@@ -82,7 +82,7 @@ def build_prompt(field):
     prompt = f"{field[PROMPT]} "
     if field[VALUE]:
         prompt += f"({field[VALUE]}) "
-    if field[HIVAL] and field[LOWVAL]:
+    if HIVAL in field and LOWVAL in field:
         prompt += f"[{field[LOWVAL]} - {field[HIVAL]}] "
     return prompt
 
