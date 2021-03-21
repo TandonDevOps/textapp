@@ -109,7 +109,7 @@ def data_repr(data):
     """
     Formats a data object for display.
     """
-    data_txt = f"{SEP}"
+    data_txt = f"{SEP}\n"
     data_txt += f"{data[TITLE]}\n"
     data_txt += f"{SEP}\n"
     for i, key in enumerate(data[DATA]):
@@ -171,7 +171,7 @@ def read_menu_file(menu_file, func_map):
 
 
 def menu_repr(menu):
-    menu_txt = f"{SEP}"
+    menu_txt = f"{SEP}\n"
     menu_txt += f"{menu[TITLE]}\n"
     menu_txt += f"{SEP}\n"
     for key, val in menu[CHOICES].items():
