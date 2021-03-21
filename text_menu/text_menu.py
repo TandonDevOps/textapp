@@ -88,7 +88,8 @@ def build_prompt(field):
 
 
 def run_form(form):
-    print(f"{form[TITLE]}\n")
+    print(f"{SEP}")
+    print(f"{form[TITLE]}")
     print(f"{SEP}\n")
     for fld in form[FLDS]:
         prompt = build_prompt(form[FLDS][fld])
@@ -108,7 +109,8 @@ def data_repr(data):
     """
     Formats a data object for display.
     """
-    data_txt = f"{data[TITLE]}\n"
+    data_txt = f"{SEP}"
+    data_txt += f"{data[TITLE]}\n"
     data_txt += f"{SEP}\n"
     for i, key in enumerate(data[DATA]):
         data_txt += f"{i}. {key}"
@@ -169,7 +171,7 @@ def read_menu_file(menu_file, func_map):
 
 
 def menu_repr(menu):
-    menu_txt = ""
+    menu_txt = f"{SEP}"
     menu_txt += f"{menu[TITLE]}\n"
     menu_txt += f"{SEP}\n"
     for key, val in menu[CHOICES].items():
