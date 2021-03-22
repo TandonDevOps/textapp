@@ -18,6 +18,9 @@ BAD_CHOICE = -999
 SEP_CHAR = "*"
 SEP_LEN = 40
 SEP = SEP_CHAR*SEP_LEN
+
+DEF_MARKER = "(default)"
+
 TAB = "    "
 TITLE = "Title"
 DEFAULT = "Default"
