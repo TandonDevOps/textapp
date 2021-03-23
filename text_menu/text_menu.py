@@ -187,7 +187,7 @@ TEST_MENU = {
     TITLE: MAIN_MENU,
     DEFAULT: CONTINUE,
     CHOICES: {
-        CONTINUE: {FUNC: go_on, TEXT: "Continue displaying menu", },
+        CONTINUE: {FUNC: go_on, TEXT: "Continue displaying menu" + " " + DEF_MARKER, },
         EXIT: {FUNC: exit, TEXT: "Exit", },
     },
 }
@@ -224,8 +224,15 @@ def menu_repr(menu):
     menu_txt = f"{SEP}\n"
     menu_txt += f"{menu[TITLE]}\n"
     menu_txt += f"{SEP}\n"
+    
+    default_choice = f"{menu[DEFAULT]}"
+    default_choice = str(default_choice) #redundant? 
+    
     for key, val in menu[CHOICES].items():
-        menu_txt += f"{TAB}{key}. {val[TEXT]}\n"
+        menu_txt += f"{TAB}{key}. {val[TEXT]}"
+        if default_choice == key:
+            menu_txt += " " + DEF_MARKER
+        menu_txt += "\n"
     menu_txt += f"{SEP}\n"
     return menu_txt
 
