@@ -54,13 +54,14 @@ STR = "STR"
 
 TEST_FORM_TITLE = "Test form"
 
+mode = os.getenv("RUN_ENV", PROD)
+
 
 def my_input(prompt):
     """
     Mock input if in test!
     """
-    mode = os.getenv("RUN_ENV", PROD)
-    print(f"mode == {mode}")
+    global mode
     if mode == TEST:
         return EXIT
     else:
@@ -296,9 +297,11 @@ def run_menu_cont(menu_data):
 
 def main():
     # Running form in test mode needs to be fixed!
-    # mod_form = run_form(TEST_FORM)
-    # only the field values will go back to the server:
-    # print(f"The modified form is: {mod_form[FLDS]}")
+    global mode
+    if mode == PROD:
+        mod_form = run_form(TEST_FORM)
+        # only the field values will go back to the server:
+        print(f"The modified form is: {mod_form[FLDS]}")
     return run_menu_cont(TEST_MENU)
 
 
