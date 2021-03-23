@@ -38,6 +38,8 @@ MENU = "Menu"
 FORM = "Form"
 DATA = "Data"
 
+SUBMIT = "Submit"
+
 DATA_SET = "Retrieved data"
 
 PROMPT = "Prompt"
@@ -45,6 +47,10 @@ VALUE = "Value"
 FLDS = "Fields"
 HIVAL = "Hival"
 LOWVAL = "Lowval"
+
+# Types of form data:
+INT = "INT"
+STR = "STR"
 
 TEST_FORM_TITLE = "Test form"
 
@@ -54,6 +60,7 @@ def my_input(prompt):
     Mock input if in test!
     """
     mode = os.getenv("RUN_ENV", PROD)
+    print(f"mode == {mode}")
     if mode == TEST:
         return EXIT
     else:
@@ -62,18 +69,19 @@ def my_input(prompt):
 
 TEST_FORM = {
     TITLE: TEST_FORM_TITLE,
+    SUBMIT: {URL: URL0, METHOD: 'post', TEXT: 'Submit'},
     FLDS: {
         "grid_height": {
             VALUE: 20,
             PROMPT: "What is the grid height?",
-            TYPE: "INT",
+            TYPE: INT,
             HIVAL: 100,
             LOWVAL: 2
         },
         "grid_width": {
             VALUE: 20,
             PROMPT: "What is the grid width?",
-            TYPE: "INT",
+            TYPE: INT,
             HIVAL: 100,
             LOWVAL: 2
         },
@@ -81,23 +89,61 @@ TEST_FORM = {
 }
 
 
-def build_prompt(field):
-    prompt = f"{field[PROMPT]} "
-    if field[VALUE]:
-        prompt += f"({field[VALUE]}) "
-    if HIVAL in field and LOWVAL in field:
-        prompt += f"[{field[LOWVAL]} - {field[HIVAL]}] "
+def build_prompt(fld):
+    """
+    Builds a prompt for a form fld using data from form description.
+    Return the built prompt.
+    """
+    prompt = f"{fld[PROMPT]} "
+    if fld[VALUE]:
+        prompt += f"({fld[VALUE]}) "
+    if HIVAL in fld and LOWVAL in fld:
+        prompt += f"[{fld[LOWVAL]} - {fld[HIVAL]}] "
     return prompt
 
 
+def get_fld_input(fld):
+    prompt = build_prompt(fld)
+    return my_input(prompt)
+
+
+def change_form_fld(fld, val):
+    """
+    Change a form field if data is valid.
+    `val` will come in as a string.
+    We will add TYPE == FLOAT later!
+    """
+    if fld[TYPE] == INT:
+        val_ok = False
+        while not val_ok:
+            try:
+                ival = int(val)
+                if LOWVAL in fld and HIVAL in fld:  # always need both for now!
+                    if ival < fld[LOWVAL] or ival > fld[HIVAL]:
+                        print("Value out of range.")
+                    else:
+                        fld[VALUE] = ival
+                        val_ok = True
+            except ValueError:
+                print("This is an integer field; please enter a number.")
+            if not val_ok:
+                val = get_fld_input(fld)
+    elif fld[TYPE] == STR:
+        fld[VALUE] = val
+
+
 def run_form(form):
+    """
+    Runs a form and fills in user answers.
+    """
     print(f"{SEP}")
     print(f"{form[TITLE]}")
     print(f"{SEP}\n")
     for fld in form[FLDS]:
-        prompt = build_prompt(form[FLDS][fld])
-        answer = my_input(prompt)
-        print(answer)
+        answer = get_fld_input(form[FLDS][fld])
+        change_form_fld(form[FLDS][fld], answer)
+    if form[SUBMIT]:
+        my_input(form[SUBMIT][TEXT])
     return form
 
 
@@ -249,7 +295,10 @@ def run_menu_cont(menu_data):
 
 
 def main():
-    run_form(TEST_FORM)
+    # Running form in test mode needs to be fixed!
+    # mod_form = run_form(TEST_FORM)
+    # only the field values will go back to the server:
+    # print(f"The modified form is: {mod_form[FLDS]}")
     return run_menu_cont(TEST_MENU)
 
 
