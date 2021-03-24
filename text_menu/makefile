@@ -4,6 +4,10 @@ PYLINTER = flake8
 
 FORCE:
 
+prod: tests
+	-git commit -a
+	git push origin main
+
 tests: lint pytests
 
 lint: FORCE

@@ -39,6 +39,7 @@ FORM = "Form"
 DATA = "Data"
 
 SUBMIT = "Submit"
+RETURN = "Return"
 
 DATA_SET = "Retrieved data"
 
@@ -152,6 +153,7 @@ TEST_DATA = {
     TYPE: DATA,
     TITLE: DATA_SET,
     DATA: {"Rec1": {"fld0": 0, "fld1": 1}, "Rec2": {"fld0": 2, "fld1": 3}},
+    RETURN: "Some URL",
 }
 
 
@@ -187,7 +189,8 @@ TEST_MENU = {
     TITLE: MAIN_MENU,
     DEFAULT: CONTINUE,
     CHOICES: {
-        CONTINUE: {FUNC: go_on, TEXT: "Continue displaying menu" + " " + DEF_MARKER, },
+        CONTINUE: {FUNC: go_on,
+                   TEXT: "Continue displaying menu" + " " + DEF_MARKER, },
         EXIT: {FUNC: exit, TEXT: "Exit", },
     },
 }
@@ -224,10 +227,10 @@ def menu_repr(menu):
     menu_txt = f"{SEP}\n"
     menu_txt += f"{menu[TITLE]}\n"
     menu_txt += f"{SEP}\n"
-    
+
     default_choice = f"{menu[DEFAULT]}"
-    default_choice = str(default_choice) #redundant? 
-    
+    default_choice = str(default_choice)  # redundant?
+
     for key, val in menu[CHOICES].items():
         menu_txt += f"{TAB}{key}. {val[TEXT]}"
         if default_choice == key:
