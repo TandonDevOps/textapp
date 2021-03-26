@@ -7,7 +7,10 @@ with open("README.md", "r") as fh:
 # Keep it in a file?
 setuptools.setup(
     name="text_menu",
-    version="0.0.1",
+    # version="0.0.1",
+    use_incremental=True,
+    setup_requires=['incremental'],
+    install_requires=['incremental'],
     author="Gene Callahan",
     author_email="gcallah@mac.com",
     description="Create simple but useful terminal menus.",
