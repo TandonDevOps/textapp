@@ -43,6 +43,9 @@ RETURN = "Return"
 
 DATA_SET = "Retrieved data"
 
+DATA_TEXT = 0
+DATA_URL = 1
+
 PROMPT = "Prompt"
 VALUE = "Value"
 FLDS = "Fields"
@@ -161,6 +164,7 @@ def data_repr(data):
     """
     Formats a data object for display.
     """
+    ret_url = data.get(RETURN, None)
     data_txt = f"{SEP}\n"
     data_txt += f"{data[TITLE]}\n"
     data_txt += f"{SEP}\n"
@@ -170,7 +174,7 @@ def data_repr(data):
         for val in rec.values():
             data_txt += f"\t{val}"
         data_txt += "\n"
-    return data_txt
+    return (data_txt, ret_url)
 
 
 MENU_FILE = f"{MENUS_DIR}/test_menu.json"
@@ -308,6 +312,8 @@ def run_menu_cont(menu_data):
 def main():
     # Running form in test mode needs to be fixed!
     global mode
+    ret = data_repr(TEST_DATA)
+    print(ret[DATA_TEXT])
     if mode == PROD:
         mod_form = run_form(TEST_FORM)
         # only the field values will go back to the server:
