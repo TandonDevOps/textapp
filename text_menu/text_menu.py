@@ -228,6 +228,7 @@ def read_menu_file(menu_file, func_map):
 
 
 def menu_repr(menu):
+    print(menu)
     menu_txt = f"{SEP}\n"
     menu_txt += f"{menu[TITLE]}\n"
     menu_txt += f"{SEP}\n"
