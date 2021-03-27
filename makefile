@@ -8,7 +8,7 @@ tests: FORCE
 	cd text_menu; make tests
 
 github: FORCE
-	git commit -a
+	- git commit -a
 	git push origin main
 
 prod: tests github
