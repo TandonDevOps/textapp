@@ -194,7 +194,7 @@ TEST_MENU = {
     DEFAULT: CONTINUE,
     CHOICES: {
         CONTINUE: {FUNC: go_on,
-                   TEXT: "Continue displaying menu" + " " + DEF_MARKER, },
+                   TEXT: "Continue displaying menu"},
         EXIT: {FUNC: exit, TEXT: "Exit", },
     },
 }
