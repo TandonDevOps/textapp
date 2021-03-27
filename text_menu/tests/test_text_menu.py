@@ -4,7 +4,7 @@ from text_menu.text_menu.text_menu import main, SUCCESS, TEST_MENU, BAD_CHOICE
 from text_menu.text_menu.text_menu import is_valid_choice, CONTINUE, EXIT, menu_repr
 from text_menu.text_menu.text_menu import MAIN_MENU, exec_choice, main
 from text_menu.text_menu.text_menu import data_repr, TEST_DATA, DATA_SET
-from text_menu.text_menu.text_menu import run_form, TEST_FORM, TITLE
+from text_menu.text_menu.text_menu import run_form, TEST_FORM, TITLE, DATA_TEXT
 
 
 class TextMenuTest(TestCase):
@@ -27,4 +27,4 @@ class TextMenuTest(TestCase):
         self.assertIn(MAIN_MENU, menu_repr(TEST_MENU))
 
     def test_data_repr(self):
-        self.assertIn(DATA_SET, data_repr(TEST_DATA))
+        self.assertIn(DATA_SET, data_repr(TEST_DATA)[DATA_TEXT])
