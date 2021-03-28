@@ -5,6 +5,8 @@ import os
 # JSON needed for menu data:
 import json
 
+import formatting as fmt
+
 TEST = "test"
 PROD = "prod"
 
@@ -15,9 +17,6 @@ URL = "url"
 METHOD = "method"
 TEXT = "text"
 BAD_CHOICE = -999
-SEP_CHAR = "*"
-SEP_LEN = 40
-SEP = SEP_CHAR*SEP_LEN
 
 DEF_MARKER = "(default)"
 
@@ -141,9 +140,7 @@ def run_form(form):
     """
     Runs a form and fills in user answers.
     """
-    print(f"{SEP}")
-    print(f"{form[TITLE]}")
-    print(f"{SEP}\n")
+    print(fmt.title(form[TITLE]))
     for fld in form[FLDS]:
         answer = get_fld_input(form[FLDS][fld])
         change_form_fld(form[FLDS][fld], answer)
@@ -165,9 +162,7 @@ def data_repr(data):
     Formats a data object for display.
     """
     ret_url = data.get(RETURN, None)
-    data_txt = f"{SEP}\n"
-    data_txt += f"{data[TITLE]}\n"
-    data_txt += f"{SEP}\n"
+    data_txt = fmt.title(data[TITLE])
     for i, key in enumerate(data[DATA]):
         data_txt += f"{i}. {key}"
         rec = data[DATA][key]
@@ -228,20 +223,16 @@ def read_menu_file(menu_file, func_map):
 
 
 def menu_repr(menu):
-    print(menu)
-    menu_txt = f"{SEP}\n"
-    menu_txt += f"{menu[TITLE]}\n"
-    menu_txt += f"{SEP}\n"
+    menu_txt = fmt.title(menu[TITLE])
 
     default_choice = f"{menu[DEFAULT]}"
-    default_choice = str(default_choice)  # redundant?
 
     for key, val in menu[CHOICES].items():
         menu_txt += f"{TAB}{key}. {val[TEXT]}"
         if default_choice == key:
             menu_txt += " " + DEF_MARKER
         menu_txt += "\n"
-    menu_txt += f"{SEP}\n"
+    menu_txt += f"{fmt.sep()}\n"
     return menu_txt
 
 
