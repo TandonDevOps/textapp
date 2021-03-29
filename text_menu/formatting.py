@@ -4,7 +4,7 @@ This file takes care of our text formatting for the text_menu package.
 """
 
 import os
-import colorama
+# import colorama  Do we really need this?
 from termcolor import colored
 
 # light means light screen, so dark text!
@@ -20,11 +20,13 @@ DEF_SEP_CHAR = '*'
 
 color_scheme = os.getenv(TEXT_MENU_MODE, DARK)  # some default!
 
+
 def color_menu(menu):
     if color_scheme == DARK:
         return colored(menu, GREEN)
     else:
         return colored(menu, RED)
+
 
 def sep(char=DEF_SEP_CHAR, length=DEF_SEP_LEN):
     return char*length

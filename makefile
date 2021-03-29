@@ -12,6 +12,7 @@ github: FORCE
 	git push origin main
 
 prod: tests github
+	# Here we are going to package for pypi.org:
 	# python3 setup.py sdist bdist_wheel
 	# python3 -m twine upload dist/*
 
