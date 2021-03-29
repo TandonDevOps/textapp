@@ -264,7 +264,8 @@ def run_menu_once(menu):
     """
     This function runs the menu once, just returning the choice made.
     """
-    print(menu_repr(menu))
+    colored_menu = fmt.color_menu(menu_repr(menu))
+    print(colored_menu)
     return get_choice(menu)
 
 
