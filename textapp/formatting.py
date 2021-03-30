@@ -1,6 +1,5 @@
-
 """
-This file takes care of our text formatting for the text_menu package.
+This file takes care of our text formatting for the textapp package.
 """
 
 import os

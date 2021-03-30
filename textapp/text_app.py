@@ -5,7 +5,7 @@ import os
 # JSON needed for menu data:
 import json
 
-import formatting as fmt
+import textapp.formatting as fmt
 
 TEST = "test"
 PROD = "prod"

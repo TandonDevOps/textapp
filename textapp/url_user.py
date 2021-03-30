@@ -1,8 +1,8 @@
-import text_menu as tm
+import text_app as ta
 
 
 def main():
-    choice = tm.get_single_opt(tm.URL_MENU)
+    choice = ta.get_single_opt(ta.URL_MENU)
     print(choice)
 
 

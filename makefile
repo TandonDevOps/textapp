@@ -5,7 +5,7 @@ PYLINTER = flake8
 FORCE:
 
 tests: FORCE
-	cd text_menu; make tests
+	cd textapp; make tests
 
 github: FORCE
 	- git commit -a
