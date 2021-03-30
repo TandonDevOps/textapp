@@ -16,7 +16,7 @@ class TextMenuTest(TestCase):
         self.assertFalse(ta.is_valid_choice(ta.BAD_CHOICE, ta.TEST_MENU))
 
     @skip("This test is stalling for input: must debug.")
-    def test_run_formr(self):
+    def test_run_form(self):
         self.assertIn(ta.TITLE, ta.run_form(ta.TEST_FORM))
 
     def test_menu_repr(self):
