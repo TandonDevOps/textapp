@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 # Read version number from env var?
 # Keep it in a file?
 setuptools.setup(
-    name="text_menu",
+    name="textapp",
     version="0.0.1",
     # use_incremental=True,
     # setup_requires=['incremental'],
