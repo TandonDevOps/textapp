@@ -144,7 +144,7 @@ def run_form(form):
     for fld in form[FLDS]:
         answer = get_fld_input(form[FLDS][fld])
         change_form_fld(form[FLDS][fld], answer)
-    if form[SUBMIT]:
+    if form.get(SUBMIT):
         my_input(form[SUBMIT][TEXT])
     return form
 
