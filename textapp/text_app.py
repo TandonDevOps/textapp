@@ -5,7 +5,7 @@ import os
 # JSON needed for menu data:
 import json
 
-import textapp.formatting as fmt
+import formatting as fmt
 
 TEST = "test"
 PROD = "prod"
@@ -58,6 +58,13 @@ STR = "STR"
 TEST_FORM_TITLE = "Test form"
 
 mode = os.getenv("RUN_ENV", PROD)
+
+HAS_TERMCOLOR = True
+
+try:
+    from termcolor import colored # noqa
+except ImportError:
+    HAS_TERMCOLOR = False
 
 
 def my_input(prompt):
@@ -223,16 +230,30 @@ def read_menu_file(menu_file, func_map):
 
 
 def menu_repr(menu):
-    menu_txt = fmt.title(menu[TITLE])
-
+    menu_txt = fmt.title(menu[TITLE], True)
     default_choice = f"{menu[DEFAULT]}"
-
     for key, val in menu[CHOICES].items():
         menu_txt += f"{TAB}{key}. {val[TEXT]}"
         if default_choice == key:
             menu_txt += " " + DEF_MARKER
         menu_txt += "\n"
     menu_txt += f"{fmt.sep()}\n"
+    return menu_txt
+
+
+def menu_repr_colored(menu):
+    colored_title = fmt.color_element(menu[TITLE])
+    menu_txt = fmt.title(colored_title, True)
+    default_choice = f"{menu[DEFAULT]}"
+    for key, val in menu[CHOICES].items():
+        colored_key = fmt.color_element(key)
+        colored_text = fmt.color_text(val[TEXT])
+        menu_txt += f"{TAB}{colored_key}. {colored_text}"
+        if default_choice == key:
+            colored_default = fmt.color_element(DEF_MARKER)
+            menu_txt += " " + colored_default
+        menu_txt += "\n"
+    menu_txt += f"{fmt.sep(True)}\n"
     return menu_txt
 
 
@@ -264,8 +285,10 @@ def run_menu_once(menu):
     """
     This function runs the menu once, just returning the choice made.
     """
-    colored_menu = fmt.color_menu(menu_repr(menu))
-    print(colored_menu)
+    if (HAS_TERMCOLOR):
+        print(menu_repr_colored(menu))
+    else:
+        print(menu_repr(menu))
     return get_choice(menu)
 
 
