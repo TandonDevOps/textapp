@@ -242,16 +242,13 @@ def menu_repr(menu):
 
 
 def menu_repr_colored(menu):
-    colored_title = fmt.color_element(menu[TITLE])
-    menu_txt = fmt.title(colored_title, True)
+    menu_txt = fmt.title(menu[TITLE], True)
     default_choice = f"{menu[DEFAULT]}"
     for key, val in menu[CHOICES].items():
-        colored_key = fmt.color_element(key)
-        colored_text = fmt.color_text(val[TEXT])
-        menu_txt += f"{TAB}{colored_key}. {colored_text}"
+        colored_key = fmt.menu_choice(key)
+        menu_txt += f"{TAB}{colored_key}. {val[TEXT]}"
         if default_choice == key:
-            colored_default = fmt.color_element(DEF_MARKER)
-            menu_txt += " " + colored_default
+            menu_txt += " " + DEF_MARKER
         menu_txt += "\n"
     menu_txt += f"{fmt.sep(True)}\n"
     return menu_txt
