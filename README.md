@@ -1,6 +1,6 @@
-# text_menu
+# textapp
 
-A small facility for making menus in a terminal.
+A small facility for making a terminal application
 
 ## Requirements
 
