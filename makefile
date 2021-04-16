@@ -20,4 +20,7 @@ dev_env: FORCE
 	pip3 install --user -r requirements-dev.txt
 
 pkg:
-	echo "Put the package commands here!"
+	python3 -m pip install --upgrade build
+	python3 -m build
+	python3 -m pip install --user --upgrade twine
+	python3 -m twine upload --repository pypi dist/*
