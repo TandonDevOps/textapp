@@ -15,6 +15,7 @@ WHITE = "white"
 MAGENTA = "magenta"
 CYAN = "cyan"
 YELLOW = "yellow"
+BLUE = "blue"
 BOLD = "bold"
 
 TEXT_MENU_MODE = "TEXT_MENU_MODE"
@@ -37,17 +38,17 @@ TEXT = "TEXT"
 MENU_CHOICE = "MENU_CHOICE"
 
 DARK_SCHEME = {
-    SEPERATOR: {'color': CYAN, 'attrs': None},
+    SEPERATOR: {'color': GREEN, 'attrs': None},
     TITLE: {'color': YELLOW, 'attrs': [BOLD]},
-    TEXT: {'color': WHITE, 'attrs': None},
-    MENU_CHOICE: {'color': CYAN, 'attrs': None},
+    TEXT: {'color': YELLOW, 'attrs': None},
+    MENU_CHOICE: {'color': CYAN, 'attrs': [BOLD]},
 }
 
 LIGHT_SCHEME = {
     SEPERATOR: {'color': RED, 'attrs': None},
-    TITLE: {'color': MAGENTA, 'attrs': [BOLD]},
-    TEXT: {'color': BLACK, 'attrs': None},
-    MENU_CHOICE: {'color': RED, 'attrs': None},
+    TITLE: {'color': BLUE, 'attrs': [BOLD]},
+    TEXT: {'color': BLUE, 'attrs': None},
+    MENU_CHOICE: {'color': GREEN, 'attrs': [BOLD]},
 }
 
 color_map = DARK_SCHEME if color_scheme == DARK else LIGHT_SCHEME
@@ -62,6 +63,10 @@ def fmt_text(text, elem=TEXT):
 
 def menu_choice(text):
     return fmt_text(text, elem=MENU_CHOICE)
+
+
+def text(text):
+    return fmt_text(text, elem=TEXT)
 
 
 def sep(in_menu=False, char=DEF_SEP_CHAR, length=DEF_SEP_LEN):

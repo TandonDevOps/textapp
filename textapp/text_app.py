@@ -5,7 +5,7 @@ import os
 # JSON needed for menu data:
 import json
 
-import textapp.formatting as fmt
+import formatting as fmt
 
 TEST = "test"
 PROD = "prod"
@@ -110,6 +110,8 @@ def build_prompt(fld):
         prompt += f"({fld[VALUE]}) "
     if HIVAL in fld and LOWVAL in fld:
         prompt += f"[{fld[LOWVAL]} - {fld[HIVAL]}] "
+    if HAS_TERMCOLOR:
+        prompt = fmt.menu_choice(prompt)
     return prompt
 
 
@@ -246,9 +248,10 @@ def menu_repr_colored(menu):
     default_choice = f"{menu[DEFAULT]}"
     for key, val in menu[CHOICES].items():
         colored_key = fmt.menu_choice(key)
-        menu_txt += f"{TAB}{colored_key}. {val[TEXT]}"
+        colored_val = fmt.text(val[TEXT])
+        menu_txt += f"{TAB}{colored_key}. {colored_val}"
         if default_choice == key:
-            menu_txt += " " + DEF_MARKER
+            menu_txt += " " + fmt.text(DEF_MARKER)
         menu_txt += "\n"
     menu_txt += f"{fmt.sep(True)}\n"
     return menu_txt
@@ -262,7 +265,12 @@ def get_choice(menu):
     c = BAD_CHOICE
     while not is_valid_choice(c, menu):
         try:
-            c = my_input("Please enter a choice from the menu above")
+            if HAS_TERMCOLOR:
+                input_text = "Please enter a choice from the menu above"
+                colored_input = fmt.menu_choice(input_text)
+                c = my_input(colored_input)
+            else:
+                c = my_input("Please enter a choice from the menu above")
             if not c or c.isspace():
                 c = menu[DEFAULT]
         except ValueError:
@@ -326,11 +334,12 @@ def main():
     # Running form in test mode needs to be fixed!
     global mode
     ret = data_repr(TEST_DATA)
-    print(ret[DATA_TEXT])
+    print(fmt.text(ret[DATA_TEXT]))
     if mode == PROD:
         mod_form = run_form(TEST_FORM)
         # only the field values will go back to the server:
-        print(f"The modified form is: {mod_form[FLDS]}")
+        form_info = f"The modified form is: {mod_form[FLDS]}"
+        print(fmt.menu_choice(form_info))
     return run_menu_cont(TEST_MENU)
 
 
