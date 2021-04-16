@@ -18,3 +18,6 @@ prod: tests github
 
 dev_env: FORCE
 	pip3 install --user -r requirements-dev.txt
+
+pkg:
+	echo "Put the package commands here!"
