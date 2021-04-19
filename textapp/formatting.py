@@ -17,6 +17,7 @@ CYAN = "cyan"
 YELLOW = "yellow"
 BLUE = "blue"
 BOLD = "bold"
+REVERSED = "reverse"
 
 TEXT_MENU_MODE = "TEXT_MENU_MODE"
 
@@ -36,19 +37,22 @@ SEPERATOR = "SEPERATOR"
 TITLE = "TITLE"
 TEXT = "TEXT"
 MENU_CHOICE = "MENU_CHOICE"
+DEF_MARKER = "DEF_MARKER"
 
 DARK_SCHEME = {
     SEPERATOR: {'color': GREEN, 'attrs': None},
     TITLE: {'color': YELLOW, 'attrs': [BOLD]},
-    TEXT: {'color': YELLOW, 'attrs': None},
+    TEXT: {'color': YELLOW, 'attrs': [BOLD]},
     MENU_CHOICE: {'color': CYAN, 'attrs': [BOLD]},
+    DEF_MARKER: {'color': YELLOW, 'attrs': [BOLD, REVERSED]},
 }
 
 LIGHT_SCHEME = {
     SEPERATOR: {'color': RED, 'attrs': None},
-    TITLE: {'color': BLUE, 'attrs': [BOLD]},
-    TEXT: {'color': BLUE, 'attrs': None},
-    MENU_CHOICE: {'color': GREEN, 'attrs': [BOLD]},
+    TITLE: {'color': GREEN, 'attrs': [BOLD]},
+    TEXT: {'color': GREEN, 'attrs': [BOLD]},
+    MENU_CHOICE: {'color': BLUE, 'attrs': [BOLD]},
+    DEF_MARKER: {'color': GREEN, 'attrs': [BOLD, REVERSED]},
 }
 
 color_map = DARK_SCHEME if color_scheme == DARK else LIGHT_SCHEME
@@ -67,6 +71,10 @@ def menu_choice(text):
 
 def text(text):
     return fmt_text(text, elem=TEXT)
+
+
+def marker(text):
+    return fmt_text(text, elem=DEF_MARKER)
 
 
 def sep(in_menu=False, char=DEF_SEP_CHAR, length=DEF_SEP_LEN):

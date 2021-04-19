@@ -251,7 +251,7 @@ def menu_repr_colored(menu):
         colored_val = fmt.text(val[TEXT])
         menu_txt += f"{TAB}{colored_key}. {colored_val}"
         if default_choice == key:
-            menu_txt += " " + fmt.text(DEF_MARKER)
+            menu_txt += " " + fmt.marker(DEF_MARKER)
         menu_txt += "\n"
     menu_txt += f"{fmt.sep(True)}\n"
     return menu_txt
