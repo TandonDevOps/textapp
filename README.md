@@ -7,6 +7,7 @@ A small facility for making a terminal application
 In order to install this package, use the following command:
 
         pip install textapp 
+## Functionality 
 
 - Runs in standard terminals.
 - Uses single key entry for menu choices.
