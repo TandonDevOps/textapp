@@ -4,7 +4,7 @@ A small facility for making a terminal application
 
 ## Requirements
 
-In order to install this package, use the following command:
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install textapp
 
         pip install textapp 
 ## Functionality 
