@@ -3,7 +3,6 @@ This file takes care of our text formatting for the textapp package.
 """
 
 import os
-# import colorama  Do we really need this?
 
 # light means light screen, so dark text!
 LIGHT = "light"
@@ -28,7 +27,7 @@ color_scheme = os.getenv(TEXT_MENU_MODE, DARK)  # some default!
 
 HAS_TERMCOLOR = True
 try:
-    from termcolor import colored # noqa
+    from termcolor import colored
 except ImportError:
     HAS_TERMCOLOR = False
 
@@ -77,12 +76,12 @@ def marker(text):
     return fmt_text(text, elem=DEF_MARKER)
 
 
-def sep(in_menu=False, char=DEF_SEP_CHAR, length=DEF_SEP_LEN):
+def sep(char=DEF_SEP_CHAR, length=DEF_SEP_LEN):
     return fmt_text(char*length, elem=SEPERATOR)
 
 
-def title(text, in_menu=False, sep_char=DEF_SEP_CHAR, sep_length=DEF_SEP_LEN):
-    seper = f"{sep(in_menu, char=DEF_SEP_CHAR, length=DEF_SEP_LEN)}"
+def title(text, sep_char=DEF_SEP_CHAR, sep_length=DEF_SEP_LEN):
+    seper = f"{sep(char=DEF_SEP_CHAR, length=DEF_SEP_LEN)}"
     text = fmt_text(text, elem=TITLE)
     return f"\n{seper}\n{text}\n{seper}\n"
 

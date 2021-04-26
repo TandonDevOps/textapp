@@ -2,10 +2,10 @@
 This file defines a simple text menu facility.
 """
 import os
+import formatting as fmt
 # JSON needed for menu data:
 import json
 
-import formatting as fmt
 
 TEST = "test"
 PROD = "prod"
@@ -232,7 +232,7 @@ def read_menu_file(menu_file, func_map):
 
 
 def menu_repr(menu):
-    menu_txt = fmt.title(menu[TITLE], True)
+    menu_txt = fmt.title(menu[TITLE])
     default_choice = f"{menu[DEFAULT]}"
     for key, val in menu[CHOICES].items():
         menu_txt += f"{TAB}{key}. {val[TEXT]}"
@@ -244,7 +244,7 @@ def menu_repr(menu):
 
 
 def menu_repr_colored(menu):
-    menu_txt = fmt.title(menu[TITLE], True)
+    menu_txt = fmt.title(menu[TITLE])
     default_choice = f"{menu[DEFAULT]}"
     for key, val in menu[CHOICES].items():
         colored_key = fmt.menu_choice(key)
@@ -253,7 +253,7 @@ def menu_repr_colored(menu):
         if default_choice == key:
             menu_txt += " " + fmt.marker(DEF_MARKER)
         menu_txt += "\n"
-    menu_txt += f"{fmt.sep(True)}\n"
+    menu_txt += f"{fmt.sep()}\n"
     return menu_txt
 
 
