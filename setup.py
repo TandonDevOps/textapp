@@ -8,6 +8,9 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="textapp",
     version="0.0.1",
+    use_incremental=True,
+    setup_requires=['incremental'],
+    install_requires=['incremental'],
     author="Gene Callahan",
     author_email="gcallah@mac.com",
     description="Create simple but useful terminal menus.",
