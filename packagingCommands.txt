@@ -1,5 +1,4 @@
 # need to create Pypi account
-# account used for textapp - user: hchowdhury3273, pass: devopsteam
 
 # include required files and structure from https://packaging.python.org/tutorials/packaging-projects/
 python3 -m pip install --upgrade build
