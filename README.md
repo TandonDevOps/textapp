@@ -7,6 +7,10 @@ A small facility for making a terminal application
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install textapp
 
         pip install textapp 
+
+## Updating Version
+
+
 ## Functionality 
 
 - Runs in standard terminals.
