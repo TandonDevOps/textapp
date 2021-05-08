@@ -9,7 +9,8 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install textapp
         pip install textapp 
 
 ## Updating Version
-
+In the command line, type "Enter the new version number:"
+It should prompt to enter the new version number
 
 ## Functionality 
 
