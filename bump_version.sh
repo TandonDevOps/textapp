@@ -1,5 +1,5 @@
 #!/bin/sh
-export OUT_FILE=setup.test  # replace with setup.py when convinced
+export OUT_FILE=setup.py
 
 echo "Enter the new version number:"
 read new_version
