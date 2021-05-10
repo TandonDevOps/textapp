@@ -2,9 +2,10 @@
 This file defines a simple text menu facility.
 """
 import os
-import formatting as fmt
 # JSON needed for menu data:
 import json
+
+import textapp.formatting as fmt
 
 
 TEST = "test"
