@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This file defines a simple text menu facility.
 """
@@ -72,7 +73,6 @@ def my_input(prompt):
     """
     Mock input if in test!
     """
-    global mode
     if mode == TEST:
         return EXIT
     else:
@@ -333,7 +333,6 @@ def run_menu_cont(menu_data):
 
 def main():
     # Running form in test mode needs to be fixed!
-    global mode
     ret = data_repr(TEST_DATA)
     print(fmt.text(ret[DATA_TEXT]))
     if mode == PROD:

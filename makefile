@@ -13,13 +13,14 @@ github: FORCE
 
 prod: tests github
 	# Here we are going to package for pypi.org:
-	# python3 setup.py sdist bdist_wheel
-	# python3 -m twine upload dist/*
+	python3 setup.py sdist bdist_wheel
+	python3 -m twine upload dist/*
 
 dev_env: FORCE
-	pip3 install --user -r requirements-dev.txt
+	pip3 install -r requirements-dev.txt
 
 pkg:
+	# we need to fix bump_version.sh!
 	python3 -m pip install --upgrade build
 	python3 -m build
 	python3 -m pip install --user --upgrade twine
