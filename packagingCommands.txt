@@ -4,5 +4,5 @@
 python3 -m pip install --upgrade build
 python3 -m build
 python3 -m pip install --user --upgrade twine
-python3 -m twine upload --repository https://upload.pypi.org/legacy/ dist/*
+python3 -m twine upload --repository pypi --repository-url https://upload.pypi.org/legacy/ dist/*
 
