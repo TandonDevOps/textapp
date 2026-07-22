@@ -7,10 +7,7 @@ with open("README.md", "r") as fh:
 # Keep it in a file?
 setuptools.setup(
     name="textapp",
-    version="0.0.3",
-    # use_incremental=True,
-    # setup_requires=['incremental'],
-    # install_requires=['incremental'],
+    version="1.0.0",
     author="Gene Callahan",
     author_email="gcallah@mac.com",
     description="Create simple but useful terminal menus.",
