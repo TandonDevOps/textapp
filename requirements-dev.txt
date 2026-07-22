@@ -1,7 +1,8 @@
-wheel
-pytest
+build
 coverage
 flake8
-twine
-build
 incremental
+pytest
+pytest-cov
+twine
+wheel

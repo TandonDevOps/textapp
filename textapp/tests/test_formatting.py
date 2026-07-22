@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from formatting import sep, title, DEF_SEP_CHAR, DEF_SEP_LEN
+from textapp.formatting import sep, title, DEF_SEP_CHAR, DEF_SEP_LEN
 
 class FmtTests(TestCase):
     def test_sep(self):
