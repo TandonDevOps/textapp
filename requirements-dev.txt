@@ -4,5 +4,6 @@ flake8
 incremental
 pytest
 pytest-cov
+setuptools
 twine
 wheel
